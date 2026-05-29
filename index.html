@@ -136,6 +136,67 @@
             }
     }
 
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+
+@media (min-width:769px) and (max-width:1024px)
+{
+    .container,
+    .scan-container,
+    .message-card
+        {
+            width:90%;
+            max-width:800px;
+            padding:40px 30px;
+        }
+
+    .birthday-title
+        {
+            font-size:48px;
+        }
+
+    .birthday-message
+        {
+            font-size:20px;
+        }
+
+    .message-card h2
+        {
+            font-size:36px;
+        }
+
+    .message-card p
+        {
+            font-size:18px;
+            line-height:1.8;
+        }
+
+    .gallery
+        {
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+        }
+
+    .gallery img
+        {
+            height:240px;
+        }
+
+    .video-box
+        {
+            max-width:700px;
+            height:400px;
+        }
+
+    .arrow-btn
+        {
+            width:65px;
+            height:65px;
+            font-size:26px;
+        }
+}
+
     *{
       margin:0;
       padding:0;

@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Someone</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body
+        {
+            min-height:100vh;
+            overflow:hidden;
+            background: linear-gradient(135deg,#ffd6e8,#f3d9ff,#dbeafe);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            position:relative;
+        }
+
+    /* Floating photo & container */
+        #floating-container
+        {
+            position:fixed;
+            inset:0;
+            overflow:hidden;
+            z-index:1;
+            pointer-events:none;
+        }
+
+        .floating-photo
+        {
+            position:absolute;
+            bottom:-150px;
+            border-radius:20px;
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            object-fit:cover;
+            opacity:0;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+            border:3px solid rgba(255,255,255,0.5);
+        }
+
+    @keyframes floatUp
+        {
+        0%
+            {
+                transform:translateY(0) scale(0.8) rotate(0deg);
+                opacity:0;
+            }
+        10%
+            {
+                transform:translateY(-50vh) rotate(5deg) scale(1);
+                opacity:.8;
+            }
+        100%
+            {
+                transform:translateY(-120vh) rotate(-8deg) scale(1.1);
+                opacity:0;
+            }
+        }
+
+    .container
+        {
+            position:relative;
+            width:90%;
+            max-width:700px;
+            padding:50px;
+            border-radius:35px;
+            background:rgba(255,255,255,0.25);
+            backdrop-filter: blur(15px);
+            border:1px solid rgba(255,255,255,0.4);
+            box-shadow:0 10px 40px rgba(0,0,0,0.1);
+            text-align:center;
+            z-index:10;
+            animation: fadeIn 1.5s ease;
+        }
+
+    @keyframes fadeIn
+        {
+            from
+                {
+                    opacity:0;
+                    transform:translateY(30px);
+                }
+            to
+                {
+                    opacity:1;
+                    transform:translateY(0);
+                }
+        }
+
+    .badge
+        {
+            display:inline-block;
+            padding:10px 20px;
+            border-radius:50px;
+            background:rgba(255,255,255,0.5);
+            color:#ff4d88;
+            font-weight:600;
+            margin-bottom:25px;
+            font-size:14px;
+        }
+
+    h1
+        {
+            font-size:60px;
+            line-height:1.1;
+            margin-bottom:20px;
+            color:#333;
+        }
+
+    h1 span
+        {
+            background:linear-gradient(to right,#ff4d88,#8b5cf6);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+    .typing
+        {
+            font-size:18px;
+            color:#555;
+            line-height:1.8;
+            min-height:100px;
+            margin-bottom:30px;
+        }
+
+    .quote
+        {
+            background:rgba(255,255,255,0.4);
+            padding:25px;
+            border-radius:25px;
+            margin-bottom:30px;
+            color:#555;
+            font-style:italic;
+            line-height:1.8;
+        }
+
+    .btn-group
+        {
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
+
+    button
+        {
+            border:none;
+            padding:15px 30px;
+            border-radius:18px;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+    .btn-love
+        {
+            background:linear-gradient(to right,#ff4d88,#ff7aa2);
+            color:white;
+            box-shadow:0 5px 20px rgba(255,77,136,.3);
+        }
+
+    .btn-love:hover
+        {
+            transform:translateY(-3px) scale(1.05);
+        }
+
+    .btn-second
+        {
+            background:rgba(255,255,255,0.6);
+            color:#333;
+        }
+
+    .btn-second:hover
+        {
+            transform:translateY(-3px) scale(1.05);
+        }
+
+    .footer
+        {
+            margin-top:35px;
+            color:#666;
+            font-size:14px;
+        }
+
+    .popup
+        {
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%) scale(0);
+            width:90%;
+            max-width:400px;
+            background:white;
+            padding:35px;
+            border-radius:30px;
+            text-align:center;
+            box-shadow:0 10px 30px rgba(0,0,0,0.2);
+            transition:.4s;
+            z-index:100;
+        }
+
+    .popup.show
+        {
+            transform:translate(-50%,-50%) scale(1);
+        }
+
+    .popup h2
+        {
+            margin-bottom:15px;
+            color:#ff4d88;
+        }
+
+    .popup p
+        {
+            color:#555;
+            line-height:1.8;
+            margin-bottom:20px;
+        }
+
+    .popup button
+        {
+            background:#ff4d88;
+            color:white;
+        }
+
+    @media(max-width:768px)
+        {
+        h1
+            {
+                font-size:42px;
+            }
+
+        .container
+            {
+                padding:35px 25px;
+            }
+
+        .typing
+            {
+                font-size:16px;
+            }
+        }
+
+.page
+    {
+        position:absolute;
+        inset:0;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        transition:1s;
+
+        opacity:0;
+        transform:translateX(100%);
+
+        z-index:5;
+    }
+
+.page.active
+    {
+        opacity:1;
+        transform:translateX(0);
+    }
+
+.page.exit
+    {
+        transform:translateX(-100%);
+    }
+
+.scan-container
+    {
+        width:90%;
+        max-width:500px;
+
+        padding:40px;
+
+        border-radius:35px;
+
+        backdrop-filter:blur(15px);
+
+        background:rgba(255,255,255,0.2);
+
+        border:1px solid rgba(255,255,255,0.3);
+
+        text-align:center;
+
+        z-index:10;
+    }
+
+.scan-container h2
+    {
+        font-size:40px;
+        margin-bottom:15px;
+        color:#ff4d88;
+    }
+
+.scan-text
+    {
+        margin-bottom:30px;
+        color:#555;
+    }
+
+.camera-box
+    {
+        position:relative;
+
+        width:100%;
+        height:400px;
+
+        border-radius:30px;
+
+        overflow:hidden;
+
+        margin-bottom:30px;
+
+        border:4px solid rgba(255,255,255,0.5);
+
+        box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+#video
+    {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+
+        transform:scaleX(-1);
+    }
+
+.scan-line
+    {
+        position:absolute;
+
+        width:100%;
+        height:4px;
+
+        background:#ff4d88;
+
+        top:0;
+
+        animation:scan 2s infinite;
+    }
+
+@keyframes scan
+    {
+        0%{
+            top:0;
+        }
+
+        100%{
+            top:100%;
+        }
+    }
+
+#birthdayPage
+    {
+        overflow:hidden;
+    }
+
+.birthday-content
+    {
+        position:relative;
+        z-index:10;
+
+        text-align:center;
+    }
+
+.birthday-title
+    {
+        font-size:70px;
+
+        color:white;
+
+        text-shadow:0 5px 20px rgba(0,0,0,0.2);
+
+        animation:pulse 2s infinite;
+    }
+
+@keyframes pulse
+    {
+        0%,100%
+            {
+                transform:scale(1);
+            }
+
+        50%
+            {
+                transform:scale(1.05);
+            }
+    }
+
+.birthday-message
+    {
+        margin-top:20px;
+        margin-bottom:40px;
+
+        font-size:22px;
+
+        color:#fff;
+    }
+
+.gallery
+    {
+        display:flex;
+        gap:20px;
+        justify-content:center;
+        flex-wrap:wrap;
+
+        margin-bottom:40px;
+    }
+
+.gallery img
+    {
+        width:220px;
+        height:320px;
+
+        object-fit:cover;
+
+        border-radius:30px;
+
+        animation:floatImage 4s ease-in-out infinite;
+
+        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+        border:4px solid rgba(255,255,255,0.5);
+    }
+
+.gallery img:nth-child(2)
+    {
+        animation-delay:1s;
+    }
+
+.gallery img:nth-child(3)
+    {
+        animation-delay:2s;
+    }
+
+@keyframes floatImage
+    {
+        0%,100%
+            {
+                transform:translateY(0);
+            }
+
+        50%
+            {
+                transform:translateY(-20px);
+            }
+    }
+
+#confetti
+    {
+        position:absolute;
+        inset:0;
+    }
+
+.slider-container
+    {
+        position:relative;
+        width:100%;
+        height:100%;
+    }
+
+.slide
+    {
+        position:absolute;
+        inset:0;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        opacity:0;
+        pointer-events:none;
+
+        transform:translateX(100px);
+
+        transition:1s;
+    }
+
+.active-slide
+    {
+        opacity:1;
+        pointer-events:auto;
+        transform:translateX(0);
+    }
+
+.slider-buttons
+    {
+        display:flex;
+        gap:20px;
+        justify-content:center;
+        align-items:center;
+        margin-top:30px;
+    }
+
+.arrow-btn
+    {
+        width:70px;
+        height:70px;
+        border-radius:50%;
+        border:none;
+
+        font-size:28px;
+
+        background:white;
+        color:#ff4d88;
+
+        cursor:pointer;
+
+        box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+        transition:.3s;
+    }
+
+.arrow-btn:hover
+    {
+        transform:scale(1.1);
+    }
+
+.message-background
+    {
+        position:absolute;
+        inset:0;
+
+        background:black;
+
+       overflow:hidden;
+
+       display:flex;
+       justify-content:center;
+       align-items:center;
+    }
+
+.fireworks-bg
+{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+    url('assets/foto10.png');
+
+    background-size:cover;
+    background-position:center;
+
+    opacity:.35;
+
+    animation:bgZoom 12s infinite alternate;
+}
+
+@keyframes bgZoom
+{
+    0%
+    {
+        transform:scale(1);
+    }
+
+    100%
+    {
+        transform:scale(1.1);
+    }
+}
+
+@keyframes bgMove
+    {
+        0%
+            {
+                transform:scale(1);
+            }
+
+        100%
+            {
+                transform:scale(1.1);
+            }
+    }
+
+.message-card
+    {
+        position:relative;
+        z-index:10;
+
+        width:85%;
+        max-width:700px;
+
+        padding:50px;
+
+        border-radius:35px;
+
+        background:rgba(255,255,255,0.15);
+
+        backdrop-filter:blur(15px);
+
+        border:2px solid rgba(255,255,255,0.3);
+
+        text-align:center;
+
+        box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    }
+
+.message-card h2
+    {
+        font-size:45px;
+        color:white;
+
+        margin-bottom:25px;
+    }
+
+.message-card p
+    {
+        font-size:22px;
+        line-height:2;
+
+        color:white;
+    }
+
+#fireworksCanvas
+    {
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        z-index:1;
+    }
+
+#videoPage 
+    {
+        display: none; /* Harus disembunyikan secara default */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,0.9);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none; /* Biar tombol di bawahnya tidak tertekan saat hidden */
+    }
+
+#videoPage.active 
+    {
+        display: flex;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+.video-overlay
+    {
+        position:absolute;
+        inset:0;
+        z-index:1;
+
+        background:
+        linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+        url('assets/foto10.png');
+
+        background-size:cover;
+        background-position:center;
+
+        animation:zoomBg 10s infinite alternate;
+
+        z-index:1;
+    }
+
+@keyframes zoomBg
+    {
+        0%
+            {
+                transform:scale(1);
+            }
+
+        100%
+            {
+                transform:scale(1.1);
+            }
+    }
+
+.video-content
+    {
+        position:relative;
+        z-index:10;
+
+        width:90%;
+        max-width:900px;
+
+        text-align:center;
+    }
+
+.video-title
+    {
+        font-size:60px;
+        color:white;
+
+        margin-bottom:20px;
+
+        text-shadow:0 5px 20px rgba(0,0,0,0.5);
+    }
+
+.video-text
+    {
+        color:white;
+        font-size:22px;
+
+        margin-bottom:30px;
+    }
+
+.video-box 
+    {
+        width: 100%;
+        max-width: 600px;
+        height: 350px;
+        margin: 20px auto;
+        position: relative;
+        z-index: 10;
+        border: 5px solid rgba(255, 255, 255, 0.3); /* Border yang Anda inginkan */
+        border-radius: 20px;
+        overflow: hidden;
+        background: #000; /* Background hitam jika video belum load */
+    }
+
+.video-box video
+    {
+        width:100%;
+        height:100%;
+
+        object-fit:contain;
+
+        display:block;
+    }
+
+@media(max-width:768px)
+    {
+        .video-title
+            {
+                font-size:40px;
+            }
+
+        .video-box video
+            {
+                height:250px;
+            }
+
+        .video-text
+            {
+                font-size:18px;
+            }
+    }
+
+#videoPage .floating-photo
+    {
+        filter:brightness(.6);
+    }
+
+#videoPage 
+    {
+        display: none; /* Default hidden */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        z-index: 9999; /* Paling depan */
+        background: rgba(0,0,0,0.9); /* Overlay gelap */
+    }
+
+.video-content 
+    {
+        position: relative;
+        z-index: 10;
+        width: 90%;
+        max-width: 900px;
+        background: rgba(0, 0, 0, 0.5); /* Tambahkan background agar terlihat */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating Photo Container -->
+    <div id="floating-container"></div>
+
+  <!-- Main Container -->
+
+  <!-- Page 1 -->
+   <div class="page active" id="homePage">
+
+        <div class="container">
+
+            <div class="badge">
+            🌷 Special Message 🌷
+            </div>
+
+            <h1>
+            Heii, <span>Nanditia</span>
+            </h1>
+
+            <div class="typing" id="typing"></div>
+
+            <div class="quote">
+            “Cute, adorable, and beautiful Nanditia, don't forget to eat the cake!”
+            </div>
+
+            <div class="btn-group">
+                
+                <button class="btn-love" onclick="goToScanPage()">
+                    💌 Open The Special Page
+                </button>
+
+                <!-- <button class="btn-second" onclick="openVideoPage()">
+                    🌸 Click Video
+                </button> -->
+            </div>
+
+            <div class="footer">
+        -by A for Incess-
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Page 2 -->
+     <div class="page" id="scanPage">
+
+        <div class="scan-container">
+            <h2>Identification your beautiful face 📸</h2>
+            <p class="scan-text">
+                Please take a cute selfie first ✨
+            </p>
+            
+            <div class="camera-box">
+                <video id="video" autoplay playsinline></video>
+                <div class="scan-line"></div>
+            </div>
+
+            <button class="btn-love" onclick="fakeScan()">
+                ✨ Identify Face
+            </button>
+        </div>
+     </div>
+
+    <!-- Page 3 -->
+      <div class="page" id="birthdayPage">
+
+        <canvas id="confetti"></canvas>
+
+        <div class="slider-container">
+            <!-- Slider 1 -->
+                <div class="slide active-slide" id="slide1">
+
+                    <div class="birthday-content">
+
+                        <h1 class="birthday-title">
+                            Curious? Click the arrow and try it.                        
+                        </h1>
+
+                        <p class="birthday-message">
+                                Look how beautiful the photo below is 🌷
+                        </p>
+
+                        <div class="gallery">
+                            <img src="assets/foto7.png">
+                            <img src="assets/foto8.png">
+                            <img src="assets/foto9.png">
+                        </div>
+
+                        <div class="slider-buttons">
+
+                            <button class="arrow-btn" onclick="nextSlide()">
+                                    ➜
+                            </button>
+
+                            <button class="btn-love" onclick="backHome()">
+                                    🌸 Back To Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" id="slide2">
+
+                <canvas id="fireworksCanvas"></canvas>
+
+                <div class="message-background">
+
+                    <div class="fireworks-bg"></div>
+
+                    <div class="message-card">
+
+                        <h2>
+                            💌 Special Wishes 💌
+                        </h2>
+
+                        <p>
+                            Happy birthday Nanditia 🌷✨
+                            <br><br>
+
+                            I hope you become a more diligent,
+                            disciplined woman, obedient to your parents 💖
+
+                            <br><br>
+
+                            Have 1 billion rupiah at a young age 💸✨
+                            and always beautiful girls 🙈🌸
+                        </p>
+
+                        <div class="slider-buttons">
+
+                            <button class="arrow-btn" onclick="prevSlide()">
+                                ⬅
+                            </button>
+
+                            <button class="btn-love" onclick="backHome()">
+                                🌸 Back To Home
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Page Video -->
+    <div class="page" id="videoPage">
+
+        <div class="video-overlay"></div>
+
+        <div class="video-content">
+
+            <h1 class="video-title">
+                🎥 Our Sweet Moment 🎥
+            </h1>
+
+            <p class="video-text">
+                Every moment with you feels magical ✨
+            </p>
+
+            <div class="video-box">
+
+                <video id="romanticVideo" controls playsinline muted>
+                    <source src="assets/Somtam.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+            </div>
+
+            <p id="videoError" style="color:white; margin-top:10px;"></p>
+
+            <audio id="bgMusic" loop>
+                <source src="assets/shapeofmyheart.mp3" type="audio/mp3">
+            </audio>
+
+            <div class="slider-buttons">
+
+                <button class="btn-love" onclick="backHome()">
+                    🌸 Back To Home
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function nextSlide()
+        {
+            document
+            .getElementById("slide1")
+            .classList.remove("active-slide");
+
+            document
+            .getElementById("slide2")
+            .classList.add("active-slide");
+        }
+
+    function prevSlide()
+        {
+            document
+            .getElementById("slide2")
+            .classList.remove("active-slide");
+
+            document
+            .getElementById("slide1")
+            .classList.add("active-slide");
+        }
+
+</script>
+
+<script>
+
+    const fireworksCanvas =
+    document.getElementById("fireworksCanvas");
+
+    const ctx =
+    fireworksCanvas.getContext("2d");
+
+    fireworksCanvas.width =
+    window.innerWidth;
+
+    fireworksCanvas.height =
+    window.innerHeight;
+
+    let particles = [];
+
+    function createFirework()
+        {
+            const x =
+            Math.random() * fireworksCanvas.width;
+
+            const y =
+            Math.random() * fireworksCanvas.height / 2;
+
+            const colors =
+            ['#ff4d88','#ffd700','#8b5cf6','#00e5ff','#ffffff'];
+
+            for(let i = 0; i < 80; i++)
+                {
+                    particles.push({
+                        x:x,
+                        y:y,
+
+                        radius:2 + Math.random() * 2,
+
+                        color:
+                        colors[Math.floor(Math.random()*colors.length)],
+
+                        speedX:(Math.random()-0.5)*8,
+                        speedY:(Math.random()-0.5)*8,
+
+                        alpha:1
+                    });
+                }
+        }
+
+    function animateFireworks()
+        {
+            ctx.clearRect(
+                0,
+                0,
+                fireworksCanvas.width,
+                fireworksCanvas.height
+            );
+
+            particles.forEach((p,index)=>
+                {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+
+                    p.alpha -= 0.01;
+
+                    ctx.globalAlpha = p.alpha;
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        p.x,
+                        p.y,
+                        p.radius,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    ctx.fillStyle = p.color;
+
+                    ctx.fill();
+
+                    if(p.alpha <= 0)
+                    {
+                        particles.splice(index,1);
+                    }
+                });
+
+            requestAnimationFrame(animateFireworks);
+        }
+
+    setInterval(createFirework,700);
+
+    animateFireworks();
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+    function startConfetti()
+        {
+            setInterval(() =>
+                {
+                    confetti({
+                        particleCount:100,
+                        spread:120,
+                        origin:{ y:0.6 }
+                    });
+
+                },2000);
+        }
+
+</script>
+
+<script>
+//    function openVideoPage() 
+//         {
+//             const videoPage = document.getElementById("videoPage");
+//             const video = document.getElementById("romanticVideo");
+//             const music = document.getElementById("bgMusic");
+
+//             // Tampilkan elemen
+//                 videoPage.style.display = "flex";
+            
+//             // Trigger animasi
+//                 setTimeout(() => 
+//                 {
+//                     videoPage.classList.add("active");
+//                 }, 50);
+
+//             // Play video
+//                 video.muted = true; // Wajib untuk autoplay
+//                 video.play().catch(e => console.log("Video play error:", e));
+                
+//             // Play music
+//                 if (music) 
+//                 {
+//                     music.play().catch(e => console.log("Audio butuh interaksi user"));
+//                 }
+//         }
+
+//         function backHome() 
+//             {
+//                 const music = document.getElementById("bgMusic");
+//                 const video = document.getElementById("romanticVideo");
+//                 const videoPage = document.getElementById("videoPage");
+
+//                 // Hentikan media
+//                     music.pause();
+//                     music.currentTime = 0;
+//                     video.pause();
+//                     video.currentTime = 0;
+                
+//                 // Hilangkan kelas active
+//                     videoPage.classList.remove("active");
+                
+//                 // Sembunyikan setelah transisi
+//                     setTimeout(() => 
+//                         {
+//                             videoPage.style.display = "none";
+//                         }, 500);
+//             }
+
+const music =
+document.getElementById("bgMusic");
+
+const video =
+document.getElementById("romanticVideo");
+
+/* =========================
+   START MUSIC
+========================= */
+
+window.addEventListener("click", () =>
+    {
+        music.volume = 1.0; // FULL VOLUME
+
+        music.play()
+        .then(() =>
+            {
+                console.log("Music playing");
+            })
+        .catch(error =>
+            {
+                console.log("Autoplay blocked:", error);
+            });
+
+    }, { once:true });
+
+/* =========================
+   VIDEO PAGE
+========================= */
+
+function openVideoPage()
+    {
+        const videoPage =
+        document.getElementById("videoPage");
+
+        videoPage.style.display = "flex";
+
+        setTimeout(() =>
+            {
+                videoPage.classList.add("active");
+            },50);
+
+        // Video tidak mempengaruhi audio utama
+            video.volume = 0.4;
+
+            video.play().catch(error =>
+                {
+                    console.log(error);
+                });
+    }
+
+/* =========================
+   CLOSE VIDEO PAGE
+========================= */
+
+function closeVideoPage()
+    {
+        const videoPage =
+        document.getElementById("videoPage");
+
+        video.pause();
+
+        videoPage.classList.remove("active");
+
+        setTimeout(() =>
+            {
+                videoPage.style.display = "none";
+            },500);
+    }
+
+/* =========================
+   BACK HOME
+========================= */
+
+function backHome()
+    {
+        location.reload();
+    }
+
+</script>
+
+<script>
+
+    document.addEventListener("visibilitychange", () =>
+        {
+            if (!document.hidden)
+                {
+                    music.volume = 0.5;
+                }
+        });
+
+</script>
+
+<script>
+
+    function changePage(current, next) 
+        {
+            const curEl = document.getElementById(current);
+            const nextEl = document.getElementById(next);
+
+            // Hapus class active
+                curEl.classList.remove("active");
+                curEl.classList.add("exit");
+
+            // Tunggu animasi transisi (300ms)
+                setTimeout(() => {
+                    curEl.style.display = "none"; // Sembunyikan agar tidak menutupi
+                    nextEl.style.display = "flex"; // Pastikan display flex aktif
+                    nextEl.classList.add("active");
+                    nextEl.classList.remove("exit"); // Pastikan tidak ada class exit
+                }, 300);
+        }
+
+    function goToScanPage()
+        {
+            changePage("homePage","scanPage");
+
+            startCamera();
+        }
+
+    async function startCamera()
+        {
+            const video =
+            document.getElementById("video");
+
+            try
+                {
+                    const stream =
+                    await navigator.mediaDevices.getUserMedia({
+                        video:
+                            {
+                            facingMode: "user"  
+                            }
+                    });
+
+                    video.srcObject = stream;
+
+                    video.style.transform = "scaleX(-1)";
+                }
+
+            catch(error)
+            {
+                alert("Camera access is required to proceed 😢");
+            }
+        }
+
+    function fakeScan()
+        {
+            setTimeout(() =>
+            {
+                changePage("scanPage","birthdayPage");
+
+                startConfetti();
+
+            },2000);
+        }
+
+    function backHome()
+        {
+            const music =
+            document.getElementById("bgMusic");
+
+            const video =
+            document.getElementById("romanticVideo");
+
+            music.pause();
+            music.currentTime = 0;
+
+            video.pause();
+            video.currentTime = 0;
+
+            location.reload();
+        }
+
+    // Typing Effect
+        const text =
+        "Just wanna remind you that today is a very special day for you 🌷";
+
+        let index = 0;
+
+        function typeText()
+            {
+                if(index < text.length)
+                    {
+                        document.getElementById("typing")
+                        .innerHTML += text.charAt(index);
+
+                        index++;
+
+                        setTimeout(typeText,40);
+                    }
+            }
+
+        typeText();
+
+</script>
+
+<!-- Floating Photos -->
+    <script>
+
+    const photos =
+        [
+            'assets/foto1.png',
+            'assets/foto2.png',
+            'assets/foto3.png',
+            'assets/foto4.png',
+            'assets/foto5.png',
+            'assets/foto6.png',
+        ];
+
+    const floatingContainer =
+    document.getElementById("floating-container");
+
+    for(let i = 0; i < 25; i++)
+        {
+            let photo =
+            document.createElement('img');
+
+            // FOTO RANDOM
+                photo.src =
+                photos[Math.floor(Math.random() * photos.length)];
+
+            // CLASS
+                photo.classList.add('floating-photo');
+
+            // POSISI
+                photo.style.left =
+                Math.random() * 100 + 'vw';
+
+            // UKURAN
+                let size =
+                70 + Math.random() * 60;
+
+            photo.style.width =
+            size + 'px';
+
+            photo.style.height =
+            size + 'px';
+
+            // DURASI
+                photo.style.animationDuration =
+                (8 + Math.random() * 7) + 's';
+
+            // DELAY
+                photo.style.animationDelay =
+                Math.random() * 10 + 's';
+
+            // MASUKKAN
+                photo.style.opacity = .5;
+
+                floatingContainer.appendChild(photo);
+        }
+
+    </script>
+
+    <script>
+            // Popup
+                function openPopup()
+                    {
+                    document.getElementById("popup").classList.add("show");
+                    }
+
+                function closePopup()
+                    {
+                    document.getElementById("popup").classList.remove("show");
+                    }
+
+    </script>
+
+</body>
+</html>

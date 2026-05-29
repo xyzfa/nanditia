@@ -677,6 +677,16 @@
         transform:scale(1.1);
     }
 
+.back-arrow
+    {
+        transform:rotate(180deg);
+    }
+
+.back-arrow:hover
+    {
+        transform:rotate(180deg) scale(1.1);
+    }
+
 .message-background
     {
         position:absolute;
@@ -1085,8 +1095,8 @@
 
                         <div class="slider-buttons">
 
-                            <button class="arrow-btn" onclick="prevSlide()">
-                                ⬅
+                           <button class="arrow-btn back-arrow" onclick="prevSlide()">
+                                ➜
                             </button>
 
                             <button class="btn-love" onclick="backHome()">
